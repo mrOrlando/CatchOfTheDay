@@ -6,7 +6,7 @@ class Order extends React.Component {
         super();
         this.renderOrder = this.renderOrder.bind(this);
     }
-    
+
     renderOrder(key) {
         const fish = this.props.fishes[key];
         const count = this.props.order[key];
@@ -26,7 +26,10 @@ class Order extends React.Component {
             const fish = this.props.fishes[key];
             const count = this.props.order[key];
             const isAvailable = fish && fish.status === 'available';
-            return prevTotal + (count * fish.price || 0);
+            if (isAvailable) {
+                return prevTotal + (count * fish.price || 0);
+            }
+            return prevTotal;
         }, 0);
         return (
             <div className="order-wrap">
